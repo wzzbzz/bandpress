@@ -85,15 +85,15 @@ class User extends Model{
 
 	public function image_id(){
 		// get user image from base WP class.
-		$image_id = empty($this->get_field( "user_image" , false ))?\app\Images\ImagePost::legacy_image_id():$this->get_field( "user_image" , false );
+		$image_id = empty($this->get_field( "user_image" , false ))?false:$this->get_field( "user_image" , false );
 		return $image_id;
 	}
 	
 	
 	public function image_post(){
-		$image = \app\Posts\PostsFactory::fromID( $this->image_id() );
-		if(empty($image) || false === strpos(get_class($image),'ImagePost') ){
-			$image = \app\Posts\PostsFactory::fromID( \app\Images\ImagePost::legacy_image_id() );
+		$image = \bandpress\Models\PostsFactory::fromID( $this->image_id() );
+		if(empty($image) || false === strpos(get_class($image),'Image') ){
+			//$image = \bandpress\Posts\PostsFactory::fromID( \bandpress\Images\ImagePost::legacy_image_id() );
 		}
 		
 		return $image;
@@ -112,7 +112,7 @@ class User extends Model{
 	
 	public function og_image(){
 		
-		if( get_class($this->image_post()) === 'app\Images\ImagePost' ){
+		if( get_class($this->image_post()) === 'bandpress\Images\ImagePost' ){
 			
 			return $this->image_post()->images()['original'];
 		
@@ -126,8 +126,8 @@ class User extends Model{
 	
 	public function featured_posts( $ids_only = false ){
 		
-		$posts =  \app\FeaturedPosts\FeaturedPosts::get_object_features( $this, $ids_only );
-		return (\app\FeaturedPosts\FeaturedPosts::isEmpty($posts))?null:$posts;
+		$posts =  \bandpress\FeaturedPosts\FeaturedPosts::get_object_features( $this, $ids_only );
+		return (\bandpress\FeaturedPosts\FeaturedPosts::isEmpty($posts))?null:$posts;
 	}
 	
 	public function get_featured_posts(){
@@ -165,7 +165,7 @@ class User extends Model{
 		$latest = array();
 		
 		foreach ( $posts_queried as $post ) {
-			$latest[] = \app\Posts\PostsFactory::fromPostObject( $post );
+			$latest[] = \bandpress\Posts\PostsFactory::fromPostObject( $post );
 		}
 		return $latest;
 	}
@@ -200,7 +200,7 @@ class User extends Model{
 		
 		foreach($series as $s){
 			
-			$return[] = \app\TaxonomyTerms\TaxonomyTermFactory::fromId($s->series_id);
+			$return[] = \bandpress\TaxonomyTerms\TaxonomyTermFactory::fromId($s->series_id);
 			
 		}
 		
@@ -230,7 +230,7 @@ class User extends Model{
 		diebug($this->results);
 	}
 	
-	public function appFeedName(){
+	public function bandpressFeedName(){
 		return html_entity_decode($this->display_name(),ENT_QUOTES);
 	}
 }

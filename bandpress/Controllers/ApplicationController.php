@@ -129,8 +129,8 @@ class ApplicationController{
 		
 		if( get_query_var('pagename') == 'user-profile' ){
 			global $wp_query;
-			$user = \bandpress\Users\Models\UserFactory::fromSlug( $wp_query->query[ 'author' ] );
-			$this->current_view = new \bandpress\Users\UserProfilePage( $user );
+			$user = \bandpress\Models\UserFactory::fromSlug( $wp_query->query[ 'author' ] );
+			$this->current_view = new \bandpress\Views\PageViews\UserProfilePageView( $user );
             return;
 		}
 		
