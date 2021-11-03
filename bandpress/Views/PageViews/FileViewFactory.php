@@ -15,6 +15,8 @@ class FileViewFactory{
             case "image":
                 break;
             case "video":
+                $view = new VideoFileView( $obj );
+                return $view;
                 break;
         }
     }

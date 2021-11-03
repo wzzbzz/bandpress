@@ -8,7 +8,7 @@
  */
 
  namespace bandpress\Models;
-
+ 
  class PostsFactory {
     
     public function __construct(){}
@@ -56,9 +56,10 @@
              case 'attachment':
                 // this will need to be updated as we extend from the 
                 // base File class
-                return new \bandpress\Models\File( $post );
 
-                /*switch($post->post_mime_type){
+               // return new \bandpress\Models\File( $post );
+
+                switch($post->post_mime_type){
                     case "audio/mpeg":
                         return new \bandpress\Models\File( $post );
                         break;
@@ -66,10 +67,9 @@
                         return new \bandpress\Models\File( $post );
                         break;
                     default:
-                    diebug($post->post_mime_type);
                         return new \bandpress\Models\Image( $post );
                         break;
-                }*/
+                }
                 break;
              case 'landing':
                 return self::valid( $post ) ? new \btrtoday\LandingPages\LandingPage( $post ) : false;

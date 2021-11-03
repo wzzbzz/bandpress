@@ -10,7 +10,7 @@
 
 namespace bandpress\Models;
 
-class Image extends Post{
+class Image extends File{
     
     ## from the internet
     # I know this stuff is junky

@@ -84,25 +84,13 @@ class UsersController {
 		StaffAdminView::userpositions_form( $user );
 	}
 	
-	public function save_userpositions($user_id){
 
-	    // sanitize this data
-		$user = StaffFactory::fromID( $user_id );
-	    $user->update_meta( 'positions' , $_POST[ 'positions' ] );
-
-	}
-	
 	public function get_users(){
 		## get this better
 		$users = get_users();
 		return $users;
 	}
-    
-    public function author_base(){
-        global $wp_rewrite;
-        
-        $wp_rewrite->author_base = '';
-    }
+
 	
     public function fix_author_url($arg){
         return str_replace("/author","",$arg);

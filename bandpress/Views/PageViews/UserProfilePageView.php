@@ -9,10 +9,15 @@ class UserProfilePageView extends View{
         ?>
         <div class="container justify-content-center">
             <!-- display name -->
-            <div><?= $this->data->display_name();?></div>
+            <div><?= $this->data->display_name();?></didiebug($post->post_mime_type);v>
             <!-- image -->
             <?php
-                diebug($this->data->image_post());
+                if($this->data->hasImage()){
+                    ?>
+                    <img src="<?= $this->data->image_post()->images()['full'];?>" />
+                    <?php
+                }
+                
             ?>
         </div>
         <?php

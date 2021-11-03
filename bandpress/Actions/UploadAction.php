@@ -13,8 +13,11 @@ class UploadAction{
     public function __construct(){}
     public function __destruct(){}
     public function do(){
+
         if($this->uploadIsValid()){
+            
             $id = media_handle_upload('file',0);
+    
             $post = get_post($id);
             $file = new \bandpress\Models\File($post);
 
@@ -28,7 +31,7 @@ class UploadAction{
         else{
             wp_redirect("/");
         }
-        
+
         die;
     }
 

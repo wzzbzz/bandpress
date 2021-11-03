@@ -110,15 +110,7 @@ class User extends Model{
 		return false;
 	}
 	
-	public function og_image(){
-		
-		if( get_class($this->image_post()) === 'bandpress\Images\ImagePost' ){
-			
-			return $this->image_post()->images()['original'];
-		
-		}
-		else return false;
-	}
+
 	
 	public function open_graph_image(){
 		return $this->og_image();

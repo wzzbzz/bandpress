@@ -1,4 +1,5 @@
 <?php
+
 $appname="bandpress";
 
 //autoload function
