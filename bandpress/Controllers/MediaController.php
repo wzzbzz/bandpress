@@ -9,6 +9,6 @@ class MediaController{
         self::addRoutes();
     }
     public function addRoutes(){
-        add_rewrite_rule("^actions/upload/?$", "index.php?action=login", "top");
+        add_rewrite_rule("^actions/upload/?$", "index.php?action=upload", "top");
     }
 }

@@ -14,8 +14,7 @@
  *   
  */
 
-namespace bandpress\TaxonomyTerms;
-use \btrtoday\Model;
+namespace bandpress\Models;
 
 class TaxonomyTerm extends Model {
 	
@@ -77,8 +76,12 @@ class TaxonomyTerm extends Model {
 	/* all image functionality encapsulated in an image post object */
 	public function image_post(){
 		if(!empty($this->image_id()))
-			return \btrtoday\Posts\PostsFactory::fromID( $this->image_id() );
+			return \bandpress\Models\PostsFactory::fromID( $this->image_id() );
 		else return false;
+	}
+
+	public function hasImage(){	
+		return !empty($this->get_field( "taxonomy_image" , false ));
 	}
 	
 	/* returns an array of all the various image sizes of the image */
@@ -91,7 +94,7 @@ class TaxonomyTerm extends Model {
 	}
 	
 	public function image_id(){
-		return $this->image_post()->id();
+		return $this->get_field("taxonomy_image");
 	}
 	
 	/* archive type:  month or year. */	

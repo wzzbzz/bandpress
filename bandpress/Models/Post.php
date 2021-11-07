@@ -29,6 +29,10 @@ class Post extends Model{
     public function update_meta( $key , $value ){
         update_post_meta( $this->id() , $key , $value );
     }
+
+    public function delete_meta($key){
+        delete_post_meta($this->id(), $key);
+    }
     
     public function id(){
       return $this->wp_post->ID;

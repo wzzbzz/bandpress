@@ -9,7 +9,7 @@ class UserProfilePageView extends View{
         ?>
         <div class="container justify-content-center">
             <!-- display name -->
-            <div><?= $this->data->display_name();?></didiebug($post->post_mime_type);v>
+            <div><?= $this->data->display_name();?></div>
             <!-- image -->
             <?php
                 if($this->data->hasImage()){

@@ -32,7 +32,7 @@ class BandsController{
           );    
         
         // Now register the taxonomy
-          register_taxonomy('bands',array('users', 'song'), array(
+          register_taxonomy('band',array('users', 'song'), array(
             'hierarchical' => false,
             'labels' => $labels,
             'show_ui' => true,
@@ -44,7 +44,7 @@ class BandsController{
     }
 
     private function rewrites(){
-      add_rewrite_rule("^band/([^\/])/?$", "index.php?pagename=band-profile&tag_id=\$matches[1]", "top");
+      add_rewrite_rule("^band/([^\/])/?$", "index.php?pagename=band-profile&band_id=\$matches[1]", "top");
     }
 
 }

@@ -3,10 +3,16 @@
 namespace bandpress\Actions;
 
 class ActionFactory{
-    public function __construct(){}
+    private $package;
+    public function __construct($package){
+        if(empty($package)){
+            $package = "bandpress";
+        }
+        $this->package = $package;
+    }
     public function fromQueryVar(){
         $action = get_query_var("action");
-        $classname = "\\bandpress\\Actions\\".ucfirst($action)."Action";
+        $classname = "\\{$this->package}\\Actions\\".ucfirst($action)."Action";
         return new $classname();
     }
 }

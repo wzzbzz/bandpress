@@ -8,11 +8,11 @@ namespace bandpress\Controllers;
 
 class ApplicationController
 {
-
+    public $current_view;
     public function __construct()
     {
         // do wordpress hooks here
-        add_action('init', array($this, "init"));
+        add_action('init', array($this, "init"),100);
     }
 
     public function __destruct()
@@ -24,6 +24,7 @@ class ApplicationController
     */
     public function init()
     {
+        add_theme_support('post-thumbnails');
 
         // system wide WP customization
         $this->disableUnwantedWordpress();
@@ -109,11 +110,17 @@ class ApplicationController
             return;
         }
 
-        if ($this->isAction()) {
-            $action = \bandpress\Actions\ActionFactory::fromQueryVar();
+        if ($this->isAction()) {            
+            $actionFactory = new \bandpress\Actions\ActionFactory(get_query_var('package'));
+            $action = $actionFactory->fromQueryVar();
             $action->do();
             return;
         }
+
+        // has view already been set in a plugin?  get outta here,
+        // in the future leave all routing to the plugins.
+        if($this->currentView())
+            return;
 
         if (get_query_var('pagename') == 'file') {
 
@@ -128,7 +135,11 @@ class ApplicationController
         }
 
         if (get_query_var('pagename') == 'band-profile'){
-            diebug(get_query_var('term_id'));
+            $wp_term = get_term(get_query_var('band_id'),'band');
+            ##validate term here
+            $band = new \bandpress\Models\Band($wp_term);
+            $this->current_view = new \bandpress\Views\PageViews\BandProfilePageView( $band );
+            return;
         }
 
         
@@ -193,6 +204,8 @@ class ApplicationController
         // actions redirect somewhere, or give no response.
         $vars[] = 'action';
         $vars[] = 'post_id'; // avoid default WP query behaviors using "p"
+        $vars[] = 'band_id';
+        $vars[] = 'package';
 
         return $vars;
     }
@@ -202,6 +215,14 @@ class ApplicationController
     public function currentView()
     {
         return $this->current_view;
+    }
+
+    public function setCurrentview( $view ){
+        $this->current_view = $view;
+    }
+
+    public function currentUser(){
+        return new \bandpress\Models\User( wp_get_current_user() );
     }
 
     private function isAction()

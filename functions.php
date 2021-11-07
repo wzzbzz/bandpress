@@ -2,24 +2,55 @@
 
 $appname="bandpress";
 
+function preInitialize($appname){
+
+    // get namespace directory list option
+    
+    if( !is_array( get_option( 'root_paths' ) ) ){
+        // add template directory to the list
+        $namespaces = array(get_template_directory());
+        update_option('root_paths', array($appname=>get_template_directory()));
+        
+    }
+
+}
+
+preInitialize( $appname );
+
 //autoload function
 spl_autoload_register(
     function($classname) {
-        global $appname;
-        if(strpos($classname, $appname) ===false || strpos($classname, $appname ) > 0  ){
-			return;
-		}
-
-		$include = get_template_directory() . "/" . str_replace( "\\","/",$classname).".php";
         
-		if(file_exists($include))
-			include_once($include);
-		else{
-            debug($include);
+        // check if this class is in the family
+        $root_paths = get_option("root_paths");
+    //    $found = false;
+        foreach($root_paths as $appname=>$path){
+  //          debug($appname);
+            $found = $found || ( strpos($classname, $appname) !== false && strpos($classname, $appname ) == 0  );
+        }
+//diebug($found);
+
+        // not one of ours, get out.
+        if(!$found)
+            return;
+
+        // what's the better way than $found flag stuff
+        $found = false;
+        foreach($root_paths as $appname=>$path){
+
+		    $include = $path . "/" . str_replace( "\\","/",$classname).".php";
+
+		    if(file_exists($include)){
+			    include_once($include);
+                $found = true;
+            }
+		    
+        }
+
+        if(!$found){
             debug($classname);
             diebug(debug_backtrace());
-			
-		}
+        }
     }
 );
 
@@ -61,6 +92,7 @@ if(!function_exists('diebug')) {
     }
 }
 flush_rewrite_rules();
+
 $app = new \bandpress\Controllers\ApplicationController();
 
 function app(){
