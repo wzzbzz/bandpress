@@ -145,7 +145,7 @@ class ApplicationController
         }
 
         if (get_query_var('pagename') == 'register'){
-            $view = new \bandpress\Views\PageViews\RegisterPageview();
+            $view = new \bandpress\Views\PageViews\RegisterPageView();
             $view->render();
         }
 
