@@ -12,8 +12,9 @@ class LoginAction{
             $result = wp_authenticate($_REQUEST['username'],$_REQUEST['password']);
             if (is_wp_error($result)){
                 foreach($result->errors as $error=>$desc){
-                    echo $error."<br>";
+                    $_SESSION['notifications']['errors'][]=$desc[0];
                 }
+                wp_redirect('/register');
             }
             else{
                 wp_signon(array('user_login'=>$_REQUEST['username'],'user_password'=>$_REQUEST['password']));
