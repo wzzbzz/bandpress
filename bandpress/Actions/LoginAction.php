@@ -14,7 +14,8 @@ class LoginAction{
                 foreach($result->errors as $error=>$desc){
                     $_SESSION['notifications']['errors'][]=$desc[0];
                 }
-                wp_redirect('/register');
+                wp_redirect('/login');
+                die;
             }
             else{
                 wp_signon(array('user_login'=>$_REQUEST['username'],'user_password'=>$_REQUEST['password']));
