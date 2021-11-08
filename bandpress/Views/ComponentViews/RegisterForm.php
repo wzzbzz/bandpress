@@ -2,7 +2,7 @@
 
 namespace bandpress\Views\ComponentViews;
 
-class LoginForm{
+class RegisterForm{
     public function __construct(){
 
     }
@@ -18,10 +18,10 @@ class LoginForm{
 
             <div class="mb-md-5 mt-md-4 pb-5">
 
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                <p class="text-white-50 mb-5">Choose a username and a password</p>
               
-                <form action="/actions/login" method="POST">
+                <form action="/actions/registerUser" method="POST">
                     <div class="form-outline form-white mb-4">
                         <input type="text" id="typeUserNameX" class="form-control form-control-lg" name="username"/>
                         <label class="form-label" for="typeUserNameX">Username</label>
@@ -31,10 +31,19 @@ class LoginForm{
                         <input type="password" id="typePasswordX" class="form-control form-control-lg" name="password" />
                         <label class="form-label" for="typePasswordX">Password</label>
                     </div>
+                    <div class="form-outline form-white mb-4">
+                        <input type="password" id="typePasswordX" class="form-control form-control-lg" name="repeat-password" />
+                        <label class="form-label" for="typePasswordX">Repeat Password</label>
+                    </div>
 
-                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
+                    <div class="form-outline form-white mb-4">
+                        <input type="text" id="Email" class="form-control form-control-lg" name="email" />
+                        <label class="form-label" for="typePasswordX">Email Address: (can be bogus)</label>
+                    </div>
 
-                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                    <p class="small mb-5 pb-lg-2 text-white">Write this stuff down I'm not doing anything fancy yet</p>
+
+                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
 
                     <div class="d-flex justify-content-center text-center mt-4 pt-1">
                         <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
@@ -45,7 +54,7 @@ class LoginForm{
             </div>
 
             <div>
-              <p class="mb-0">Don't have an account? <a href="/register" class="text-white-50 fw-bold">Sign Up</a></p>
+              <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a></p>
             </div>
 
           </div>

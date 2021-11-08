@@ -57,6 +57,8 @@ class ApplicationController
     /* add your miscellaneous rewrites here */
     private function rewrites()
     {
+        add_rewrite_rule("^register/?$", "index.php?pagename=register", "top");
+        add_rewrite_rule("^login/?$", "index.php?pagename=login", "top");
     }
 
     private function disableUnwantedWordpress()
@@ -142,6 +144,15 @@ class ApplicationController
             return;
         }
 
+        if (get_query_var('pagename') == 'register'){
+            $view = new \bandpress\Views\PageViews\RegisterPageview();
+            $view->render();
+        }
+
+        if (get_query_var('pagename') == 'login'){
+            $view = new \bandpress\Views\PageViews\LoginPageview();
+            $view->render();
+        }
         
 
 
@@ -227,6 +238,6 @@ class ApplicationController
 
     private function isAction()
     {
-        return !empty(get_query_var("action"));
+        return !empty( get_query_var( "action" ) );
     }
 }

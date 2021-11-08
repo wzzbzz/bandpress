@@ -15,6 +15,7 @@ class View{
         $this->data = $data;
         $this->setHeader();
         $this->setNav();
+        $this->setNotifications();
         $this->setFooter();
         $this->user = is_user_logged_in();
     }
@@ -27,6 +28,7 @@ class View{
     public function render(){
         $this->renderHeader();
         $this->renderNav();
+        $this->renderNotifications();
         $this->renderBody();
         $this->renderFooter();
     }
@@ -45,6 +47,13 @@ class View{
     
     protected function renderNav(){
         $this->nav->render();
+    }
+
+    protected function setNotifications(){
+        $this->notifications = new \bandpress\Views\ComponentViews\Notifications($_SESSION['notifications']);
+    }
+    protected function renderNotifications(){
+        $this->notifications->render();
     }
     protected function renderBody(){
         ?>
