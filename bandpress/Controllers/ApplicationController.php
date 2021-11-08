@@ -150,7 +150,7 @@ class ApplicationController
         }
 
         if (get_query_var('pagename') == 'login'){
-            $view = new \bandpress\Views\PageViews\LoginPageview();
+            $view = new \bandpress\Views\PageViews\LoginPageView();
             $view->render();
         }
         
