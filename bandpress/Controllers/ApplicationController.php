@@ -13,6 +13,7 @@ class ApplicationController
     {
         // do wordpress hooks here
         add_action('init', array($this, "init"),100);
+        add_action('admin_init', array($this, "admin_init"),100);
     }
 
     public function __destruct()
@@ -39,6 +40,10 @@ class ApplicationController
         \bandpress\Controllers\BandsController::init();
 
 
+    }
+
+
+    public function admin_init(){
     }
 
     /* place system wide filters and actions here */
