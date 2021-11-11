@@ -101,6 +101,7 @@ class Post extends Model{
     public function date(){
       return $this->wp_post->post_date;
     }
+    
     public function formatted_date($fmt){
       
         return date( $fmt , strtotime($this->wp_post->post_date ));
