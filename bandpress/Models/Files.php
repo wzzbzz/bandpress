@@ -9,8 +9,11 @@ class Files extends Model{
         
         $md5 = md5_file($filepath);
         $sql = "SELECT post_id from wp_postmeta WHERE meta_key='md5' AND meta_value='$md5'";
-        
-        return !empty($this->get_results($sql));
+        $results = $this->get_results($sql);
+        if(empty($results))
+            return false;
+        else
+            return $results[0];
        
     }
 

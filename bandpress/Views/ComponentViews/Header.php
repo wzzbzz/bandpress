@@ -36,12 +36,16 @@ class Header{
 
 
     // setters and getters
-    public function setPageTitle($title){
+    public function setPageTitle( $title ){
+
         $this->pageTitle = $title;
+
     }
 
     public function getPageTitle(){
+
         return $this->pageTitle;
+        
     }
 
     public function renderPageTitle(){

@@ -14,7 +14,19 @@ class UploadAction{
     public function __destruct(){}
     public function do(){
 
-        if($this->uploadIsValid()){
+        if($id=$this->handleFileUpload()){
+            wp_redirect("/files/{$id}");
+        }
+        
+        else{
+            wp_redirect("/");
+        }
+
+        die;
+    }
+
+    protected function handleFileUpload(){
+        if(($id = $this->uploadIsValid())===true){
             
             $id = media_handle_upload('file',0);
     
@@ -25,24 +37,20 @@ class UploadAction{
             $file->setMd5();
             $id = $file->id();
             $_SESSION['message']="File Upload Successful.";
-            wp_redirect("/files/{$id}");
 
+            return $id;
         }
-        else{
-            wp_redirect("/");
-        }
-
-        die;
+        return $id;
     }
-
     private function uploadIsValid(){
 
         // files model queries for files
         $files = new \bandpress\Models\Files();
         // check for md5 to see if file exists
-        if($files->fileExists($_FILES['file']['tmp_name'])){
-            $_SESSION['message']="This file has already been uploaded.";
-            return false;
+        if($id = $files->fileExists($_FILES['file']['tmp_name'])){
+            $_SESSION['message']="This file has already been uploa
+            ded.";
+            return $id->post_id;
         }
         
         return true;

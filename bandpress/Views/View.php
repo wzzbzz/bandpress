@@ -5,24 +5,37 @@ namespace bandpress\Views;
 class View{
 
     protected $data;
-    private $header;
-    private $nav;
-    private $body;
-    private $footer;
+    protected $header;
+    protected $nav;
+    protected $body;
+    protected $footer;
 
     public function __construct($data=null){
         
+        // context-particular data
         $this->data = $data;
-        $this->setHeader();
-        $this->setNav();
-        $this->setNotifications();
-        $this->setFooter();
+
+        // user logged in state / user_id
         $this->user = is_user_logged_in();
+
+        // start with the header
+        $this->header = new \bandpress\Views\ComponentViews\Header($this->data);
+
+        // nav component;  pass along the data
+        $this->nav = new \bandpress\Views\ComponentViews\Nav($this->data);
+        
+        $this->notifications = new \bandpress\Views\ComponentViews\Notifications($_SESSION['notifications']);
+        $this->footer = new \bandpress\Views\ComponentViews\Footer($this->data);
+
     }
     public function __destruct(){}
 
     public function init(){
-        // here we will set our header, nav, body, footer stuff
+        
+        $this->setNavItems();
+        $this->setHeaderItems();
+        $this->setFooterItems();
+
     }
 
     public function render(){
@@ -33,16 +46,21 @@ class View{
         $this->renderFooter();
     }
 
-    protected function setHeader(){
-        $this->header = new \bandpress\Views\ComponentViews\Header($this->data);
+    protected function setHeaderItems(){
+        $this->header->setPageTitle("Forktheinternet.com!");
     }
     
     protected function renderHeader(){
         $this->header->render();
     }
 
-    protected function setNav(){
-        $this->nav = new \bandpress\Views\ComponentViews\Nav($this->data);
+    protected function setNavItems( $items ){
+        if($this->user){
+            
+        }
+        else{
+            
+        }
     }
     
     protected function renderNav(){
@@ -50,8 +68,9 @@ class View{
     }
 
     protected function setNotifications(){
-        $this->notifications = new \bandpress\Views\ComponentViews\Notifications($_SESSION['notifications']);
+        
     }
+
     protected function renderNotifications(){
         $this->notifications->render();
     }
@@ -60,8 +79,8 @@ class View{
         <div class="container">This will be the body</div>
         <?php
     }
-    protected function setFooter(){
-        $this->footer = new \bandpress\Views\ComponentViews\Footer($this->data);
+    protected function setFooterItems(){
+        
     }
 
     protected function renderFooter(){

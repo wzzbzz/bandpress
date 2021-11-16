@@ -227,7 +227,6 @@ class ApplicationController
     }
 
 
-
     public function currentView()
     {
         return $this->current_view;
