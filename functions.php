@@ -54,7 +54,6 @@ spl_autoload_register(
             foreach($root_paths as $path){
                 echo $path . "/" . str_replace( "\\","/",$classname).".php<br>";
             }
-            die;
             debug($classname);
             diebug(debug_backtrace());
         }
