@@ -17,9 +17,11 @@ function preInitialize($appname){
 
 preInitialize( $appname );
 
+
 //autoload function
 spl_autoload_register(
-    function($classname) {
+    
+    function($classname) { 
         
         // check if this class is in the family
         $root_paths = get_option("root_paths");
@@ -36,6 +38,7 @@ spl_autoload_register(
 
         // what's the better way than $found flag stuff
         $found = false;
+
         foreach($root_paths as $appname=>$path){
 
 		    $include = $path . "/" . str_replace( "\\","/",$classname).".php";
@@ -48,6 +51,10 @@ spl_autoload_register(
         }
 
         if(!$found){
+            foreach($root_paths as $path){
+                echo $path . "/" . str_replace( "\\","/",$classname).".php<br>";
+            }
+            die;
             debug($classname);
             diebug(debug_backtrace());
         }
