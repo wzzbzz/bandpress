@@ -37,8 +37,6 @@ class Nav{
           $session_links=["Sign Up"=>"/register","Sign On"=>"/login"];
           $this->setSectionLinks("session_links", $session_links);
         }
-        ?>
-        <?php
         
     }
 
