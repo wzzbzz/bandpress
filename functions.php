@@ -1,6 +1,6 @@
 <?php
 
-$appname="bandpress";
+$appname="vinepress";
 
 function preInitialize($appname){
 
@@ -11,6 +11,13 @@ function preInitialize($appname){
         $namespaces = array(get_template_directory());
         update_option('root_paths', array($appname=>get_template_directory()));
         
+    }
+    else{
+        $paths = get_option('root_paths');
+        if(!isset($paths[$appname])){
+            $paths[$appname] = get_template_directory();
+            update_option('root_paths',$paths);
+        }
     }
 
 }
@@ -99,7 +106,7 @@ if(!function_exists('diebug')) {
 }
 flush_rewrite_rules();
 
-$app = new \bandpress\Controllers\ApplicationController();
+$app = new \vinepress\Controllers\ApplicationController();
 
 function app(){
     global $app;
@@ -107,5 +114,5 @@ function app(){
 }
 
 function sys(){
-    return new \bandpress\Systems\System();
+    return new \vinepress\Systems\System();
 }

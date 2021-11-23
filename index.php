@@ -2,6 +2,7 @@
 
 global $app;
 
-if($app)
+if($app){
     $app->currentView()->render();
+}
 ?>

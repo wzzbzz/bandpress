@@ -1,13 +1,13 @@
 /*
-Theme Name: BandPress
-Theme URI: http://jimwilliamsconsulting.com/bandpress
+Theme Name: vinepress
+Theme URI: http://jimwilliamsconsulting.com/vinepress
 Author: Jim Williams
 Author URI: http://therealjimwilliams.com/
 Description: An attempt at an alternate, MVC approach Wordpress theme development.
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: exprimental 
-Text Domain: bandpress
+Text Domain: vinepress
 
 This theme, like WordPress, is licensed under the GPL.
 Use it to make something cool, have fun, and share what you've learned with others.
@@ -46,5 +46,4 @@ Use it to make something cool, have fun, and share what you've learned with othe
     min-height: 75rem;
     padding-top: 4.5rem;
   }
-  
   
