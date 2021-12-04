@@ -278,6 +278,10 @@ class TaxonomyTerm extends Model {
 		return update_term_meta( $this->id() , $meta_key, $value);
 	}
 	
+	public function add_meta( $meta_key , $value, $unique=false ){
+		return add_term_meta( $this->id() , $meta_key, $value, $unique);
+	}
+
 	public function delete_meta( $meta_key ){
 		return delete_term_meta( $this->id(), $meta_key );
 	}

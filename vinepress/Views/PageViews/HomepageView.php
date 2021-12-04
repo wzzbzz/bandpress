@@ -37,6 +37,16 @@ class HomepageView extends View{
           <a href="/pickenchicken" class="btn btn-primary">Beat The Chicken Now!</a>
         </div>
       </div>
+      <div class="card">
+        <div class="card-header">
+          Music
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Bandpress!</h5>
+          <p class="card-text">Juice your creativity!  try it for free for now.</p>
+          <a href="/bandpress" class="btn btn-primary">Jam on!</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

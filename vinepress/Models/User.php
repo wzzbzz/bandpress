@@ -24,6 +24,10 @@ class User extends Model{
 		return $this->wp_user->display_name;
 	}
 
+	public function name(){
+		return $this->display_name();
+	}
+
 	public function last_name(){
 		return $this->wp_user->last_name;
 	}
@@ -34,11 +38,15 @@ class User extends Model{
 	
 	
 	public function id(){
-		if(is_object($this->wp_user))
+		
+		if(is_object($this->wp_user)){
 			return $this->wp_user->ID;
+		}
 		elseif(is_array($this->wp_user)){
+			
 			return $this->wp_user['ID'];
 		}
+
 	}
 	
 	public function acf_id(){
@@ -179,6 +187,10 @@ class User extends Model{
 		return update_user_meta( $this->id() , $meta_key, $value);
 	}
 	
+	public function add_meta( $meta_key , $value ){
+		return add_user_meta( $this->id() , $meta_key, $value);
+	}
+
 	public function delete_meta( $meta_key ){
 		return delete_user_meta( $this->id(), $meta_key );
 	}
@@ -224,6 +236,24 @@ class User extends Model{
 	
 	public function vinepressFeedName(){
 		return html_entity_decode($this->display_name(),ENT_QUOTES);
+	}
+
+	public function addRole($role){
+		// first check if the role exists.
+		// do some kind of error handling.
+		$this->wp_user->add_role($role);
+	}
+
+	public function removeRole($role){
+		$this->wp_user->remove_role($role);
+	}
+
+	public function setRole($role){
+		$this->wp_user->set_role( $role );
+	}
+
+	public function roles(){
+		return $this->wp_user->roles;
 	}
 }
 

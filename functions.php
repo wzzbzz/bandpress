@@ -14,6 +14,7 @@ function preInitialize($appname){
     }
     else{
         $paths = get_option('root_paths');
+
         if(!isset($paths[$appname])){
             $paths[$appname] = get_template_directory();
             update_option('root_paths',$paths);

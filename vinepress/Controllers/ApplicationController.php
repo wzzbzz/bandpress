@@ -36,10 +36,7 @@ class ApplicationController
         \vinepress\Controllers\UsersController::init();
         \vinepress\Controllers\SessionController::init();
         \vinepress\Controllers\FilesController::init();
-        \vinepress\Controllers\SongsController::init();
-        \vinepress\Controllers\BandsController::init();
-
-
+        
     }
 
 
@@ -220,7 +217,6 @@ class ApplicationController
         // actions redirect somewhere, or give no response.
         $vars[] = 'action';
         $vars[] = 'post_id'; // avoid default WP query behaviors using "p"
-        $vars[] = 'band_id';
         $vars[] = 'package';
 
         return $vars;
@@ -237,6 +233,9 @@ class ApplicationController
     }
 
     public function currentUser(){
+        if(!is_user_logged_in()){
+            return false;
+        }
         return new \vinepress\Models\User( wp_get_current_user() );
     }
 

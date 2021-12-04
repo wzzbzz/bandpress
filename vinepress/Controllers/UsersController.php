@@ -7,6 +7,7 @@
  */
 
 namespace vinepress\Controllers;
+use vinepress\Models\User;
 
 class UsersController {
     
@@ -17,7 +18,7 @@ class UsersController {
     public function init(){
         
         self::rewrites();
-        
+        self::roles();
         //StaffArchivesController::init();
         
 		//add_action('author_link', array(self::class,'fix_author_url'));
@@ -33,13 +34,16 @@ class UsersController {
 
     }
     
-    ## THIS IS NOT WORKING WE WILL DISCOVER THIS WHEN I AM BUILDING THE STAFF PAGES
     public function rewrites(){
 
         $user_rgx = self::getUsersRegEx();
         add_rewrite_rule("^users/($user_rgx)/?$", "index.php?pagename=user-profile&author=\$matches[1]", "top");
         //add_rewrite_rule("^users/($user_rgx)/feed/?$", "index.php?feed=itunes&feed-type=staff&feed-name=\$matches[1]", "top");
 
+    }
+
+    public function roles(){
+        add_role("nonuser", "Non User");
     }
 
     private function getUsersRegEx(){
@@ -94,6 +98,23 @@ class UsersController {
 	
     public function fix_author_url($arg){
         return str_replace("/author","",$arg);
+    }
+
+    public static function makeNonUserUser($username){
+        $email = preg_replace("/([^A-Za-z0-9]+)/","",base64_encode($username));
+        $email = $email . "@forktheinternet.com";
+        $password = base64_encode($username);
+        
+        $result = wp_create_user($username,$password, $email);
+
+        if(!is_wp_error($result)){
+            $wpuser = get_user_by("ID", $result);
+            $wpuser->set_role("nonuser");
+            return new User($wpuser);
+        }
+
+        return false;
+        
     }
 
 }
