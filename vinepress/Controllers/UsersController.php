@@ -106,7 +106,7 @@ class UsersController {
         $password = base64_encode($username);
         
         $result = wp_create_user($username,$password, $email);
-
+diebug($result);
         if(!is_wp_error($result)){
             $wpuser = get_user_by("ID", $result);
             $wpuser->set_role("nonuser");
