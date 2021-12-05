@@ -101,10 +101,15 @@ class UsersController {
     }
 
     public static function makeNonUserUser($username){
+        
+        if(empty($username)){
+            return false;
+        }
+
         $email = preg_replace("/([^A-Za-z0-9]+)/","",base64_encode($username));
         $email = $email . "@forktheinternet.com";
         $password = base64_encode($username);
-diebug($username);        
+
         $result = wp_create_user($username,$password, $email);
 
         if(!is_wp_error($result)){
