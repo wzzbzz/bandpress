@@ -104,9 +104,9 @@ class UsersController {
         $email = preg_replace("/([^A-Za-z0-9]+)/","",base64_encode($username));
         $email = $email . "@forktheinternet.com";
         $password = base64_encode($username);
-        
+diebug($username);        
         $result = wp_create_user($username,$password, $email);
-diebug($result);
+
         if(!is_wp_error($result)){
             $wpuser = get_user_by("ID", $result);
             $wpuser->set_role("nonuser");
