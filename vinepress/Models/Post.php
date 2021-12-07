@@ -30,6 +30,10 @@ class Post extends Model{
         update_post_meta( $this->id() , $key , $value );
     }
 
+    public function add_meta( $key, $value, $unique=false ){
+        add_post_meta( $this->id(), $key, $value, $unique );
+    }
+
     public function delete_meta($key){
         delete_post_meta($this->id(), $key);
     }
@@ -257,6 +261,14 @@ class Post extends Model{
 
         return $this->linkify( $content );
       
+    }
+
+    public function updatePostContent($content){
+        $args=[
+            'ID'=>$this->id(),
+            'post_content'=>$content
+        ];
+        wp_update_post( $args );
     }
     
     public function content_raw(){
@@ -486,7 +498,7 @@ class Post extends Model{
             $url = $matches[1];
             $parts = parse_url($url);
             if(isset($parts['scheme'])&&isset($parts['host'])){
-                preg_match("/((vinepress\.com)|(breakthruradio\.com)|(b\-t\-r\.co))/",$url,$matches);
+                preg_match("/((thevine\.com)|(breakthruradio\.com)|(b\-t\-r\.co))/",$url,$matches);
                 if(count($matches)==0){
                     $href .= ' target="_blank"';
                 }

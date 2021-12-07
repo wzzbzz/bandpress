@@ -26,7 +26,7 @@ class UploadAction{
     }
 
     protected function handleFileUpload(){
-        if(($id = $this->uploadIsValid())===true){
+        if(($id = $this->validateUpload())===true){
             
             $id = media_handle_upload('file',0);
     
@@ -42,18 +42,24 @@ class UploadAction{
         }
         return $id;
     }
-    private function uploadIsValid(){
+    protected function validateUpload(){
 
         // files model queries for files
         $files = new \vinepress\Models\Files();
         // check for md5 to see if file exists
         if($id = $files->fileExists($_FILES['file']['tmp_name'])){
-            $_SESSION['message']="This file has already been uploa
-            ded.";
+            $_SESSION['notifications']['errors'][]="This file has already been uploaded.";
             return $id->post_id;
         }
-        
+        else if($this->invalidFile()){
+            $_SESSION['notifications']['errors'][]="invalid file";
+            return false;
+        }
         return true;
         
+    }
+
+    protected function invalidFile(){
+        return false;
     }
 }
