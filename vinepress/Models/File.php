@@ -49,5 +49,9 @@ class File extends Post{
         return wp_get_attachment_url($this->id());
     }
 
+    public function filename(){
+        return basename($this->resource_url());
+    }
+
 
 }

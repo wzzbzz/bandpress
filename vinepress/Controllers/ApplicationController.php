@@ -52,6 +52,7 @@ class ApplicationController
         // hook into enqueue scripts
         add_action("wp_enqueue_scripts", array($this, "enqueueScripts"));
 
+        add_action("wp", array($this, "setContext"));
         // hook into wp hook and set the current view
         add_action("wp", array($this, "setPage"));
     }
@@ -61,6 +62,9 @@ class ApplicationController
     {
         add_rewrite_rule("^register/?$", "index.php?pagename=register", "top");
         add_rewrite_rule("^login/?$", "index.php?pagename=login", "top");
+
+        // do the logout action for the logout page
+        add_rewrite_rule("^logout/?$", "index.php?action=logout", "top");
     }
 
     private function disableUnwantedWordpress()
@@ -97,7 +101,7 @@ class ApplicationController
         wp_enqueue_style("vinepressCSS", get_stylesheet_uri());
     }
 
-    /*
+    /** 
      *  This is where the rubber meets the road;  all real
      *  routing logic goes in here.
      *  In this method, you use the URL and the WP APIs
@@ -155,6 +159,11 @@ class ApplicationController
             $view = new \vinepress\Views\PageViews\LoginPageView();
             $view->render();
         }
+
+        if (get_query_var('pagename') == 'logout'){
+            $view = new \vinepress\Views\PageViews\LoginPageView();
+            $view->render();
+        }
         
 
 
@@ -209,6 +218,10 @@ class ApplicationController
         }
     }
 
+
+    public function setContext(){
+
+    }
 
     /* filter hook methods */
     public function queryVars($vars)

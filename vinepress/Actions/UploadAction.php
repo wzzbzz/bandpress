@@ -29,7 +29,9 @@ class UploadAction{
         if(($id = $this->validateUpload())===true){
             
             $id = media_handle_upload('file',0);
-    
+            if(is_wp_error($id)){
+                return $id;
+            }
             $post = get_post($id);
             $file = new \vinepress\Models\File($post);
 
